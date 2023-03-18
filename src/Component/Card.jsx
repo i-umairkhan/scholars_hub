@@ -23,7 +23,10 @@ export default function BasicCard({
   postedByEmail,
   description,
   roles,
+  isJob,
 }) {
+  const handleClick = () => {};
+
   return (
     <Card sx={{ minWidth: 275, backgroundColor: "#f2f2f2", marginTop: "20px" }}>
       <CardContent>
@@ -31,6 +34,7 @@ export default function BasicCard({
         <h1 className="text-xl mg-1">{description}</h1>
         <h1 className="text-gray-400 text-sm mb-1">{postedByEmail}</h1>
         <h1 className=" text-sm mb-1">{roles}</h1>
+        {isJob ? <Button onClick={handleClick}>Apply</Button> : null}
       </CardContent>
     </Card>
   );

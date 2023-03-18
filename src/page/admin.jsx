@@ -36,6 +36,7 @@ function Admin() {
       roles,
       postedBy: auth.name,
       postedByEmail: auth.email,
+      appliers: [],
     });
     setDescription("");
     setRoles("");

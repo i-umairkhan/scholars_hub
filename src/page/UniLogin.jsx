@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import AuthContext from "../context/authContext";
 import { setUser } from "../CustomeHook/setUser";
+import loginsvg from "../assets/redbg.svg";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,10 +32,11 @@ function Login() {
 
   return (
     <div className=" w-screen h-screen bg-gradient-to-r from-red-500 to-orange-500 flex">
-      <div className="w-[50%] flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-white font-bold">Schloars Hub.</h1>
-        <p className="text-white text-2xl">
-          Your big opportunity may be right where you are now
+      <div className="w-[50%] flex flex-col justify-center items-center ">
+        <img src={loginsvg} alt="" className="h-48" />
+        <h1 className="text-5xl text-white font-black m-5">Schloars Hub.</h1>
+        <p className="text-blue-100 text-m w-56 text-center">
+          Your big opportunity may be right where you are now.
         </p>
       </div>
       <div className="flex flex-col w-[50%]  justify-center items-center bg-white gap-10">
@@ -59,7 +61,7 @@ function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <Button variant="contained" onClick={onLogin}>
-            Create Account
+            Login
           </Button>
           <h3 className="flex gap-4 items-center justify-center">
             Already a member?
@@ -71,18 +73,15 @@ function Login() {
             >
               Signup
             </Button>
-          </h3>
-          <div>
             <Button
               className="cursor-pointer "
-              variant="outlined"
               onClick={() => {
                 navigate("/");
               }}
             >
               User
             </Button>
-          </div>
+          </h3>
         </div>
       </div>
     </div>

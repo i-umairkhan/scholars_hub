@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
+import loginsvg from "../assets/loginsvg.svg";
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -45,9 +46,10 @@ function Signup() {
   return (
     <div className=" w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex">
       <div className="w-[50%] flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-white font-bold">Schloars Hub.</h1>
-        <p className="text-white text-2xl">
-          Your big opportunity may be right where you are now
+        <img src={loginsvg} alt="" className="h-48" />
+        <h1 className="text-5xl text-white font-black m-5">Schloars Hub.</h1>
+        <p className="text-blue-100 text-m w-56 text-center">
+          Your big opportunity may be right where you are now.
         </p>
       </div>
       <div className="flex flex-col w-[50%]  justify-center items-center bg-white gap-10">
@@ -89,7 +91,7 @@ function Signup() {
             Create Account
           </Button>
           <h3 className="flex gap-4 items-center justify-center">
-            Not a member?
+            Already a member?
             <Button
               className="cursor-pointer"
               onClick={() => {
@@ -98,18 +100,15 @@ function Signup() {
             >
               Login
             </Button>
-          </h3>
-          <div>
             <Button
               className="cursor-pointer"
-              variant="outlined"
               onClick={() => {
                 navigate("/uni-login");
               }}
             >
               Organization
             </Button>
-          </div>
+          </h3>
         </div>
       </div>
     </div>

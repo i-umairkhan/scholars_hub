@@ -10,15 +10,20 @@ import Card from "../Component/Card";
 function Admin() {
   const { auth } = useContext(AuthContext);
   const [allJobs, setAllJobs] = useState([]);
+  const [allorganizations, setAllOrganizations] = useState([]);
 
-  const orgColection = collection(db, "jobs");
+  const jobColection = collection(db, "jobs");
+  const orgColection = collection(db, "organization");
 
   useEffect(() => {
     const getUsers = async () => {
-      const d = await getDocs(orgColection);
+      const d = await getDocs(jobColection);
+      const o = await getDocs(orgColection);
       const all = d.docs.map((doc) => doc.data());
-      console.log(all);
+      let oall = o.docs.map((doc) => doc.data());
       setAllJobs(all);
+      oall = [...new Set(oall)];
+      setAllOrganizations(oall);
     };
 
     getUsers();
@@ -35,20 +40,28 @@ function Admin() {
           <Button variant="contained">SignOut</Button>
         </div>
       </nav>
-      <div
-        className="p-2 w-2/5
-"
-      >
-        <h1 className="text-2xl ">Recent Oppertunites</h1>
-        {allJobs.map((job) => (
-          <Card
-            title={job.title}
-            description={job.description}
-            postedBy={job.postedBy}
-            postedByEmail={job.postedByEmail}
-            roles={job.roles}
-          />
-        ))}
+      <div className="p-2   flex justify-between">
+        <div>
+          <h1 className="text-2xl ">Recent Oppertunites</h1>
+          {allJobs.map((job) => (
+            <Card
+              title={job.title}
+              description={job.description}
+              postedBy={job.postedBy}
+              postedByEmail={job.postedByEmail}
+              roles={job.roles}
+              isJob="true"
+            />
+          ))}
+        </div>
+        <div>
+          {allorganizations.map((org) => (
+            <div>
+              <div>{org.name}</div>
+              <div>{org.email}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
