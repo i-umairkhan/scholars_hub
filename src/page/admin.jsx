@@ -21,7 +21,9 @@ function Admin() {
       const d = await getDocs(orgColection);
       const all = d.docs.map((doc) => doc.data());
       console.log(all);
-      setAllJobs(all);
+      const myJobs = all.filter((doc) => doc.postedByEmail === auth.email);
+      console.log(myJobs);
+      setAllJobs(myJobs);
     };
 
     getUsers();
@@ -84,7 +86,6 @@ function Admin() {
         </div>
         <div className="ml-44">
           <h1 className="text-2xl ">Your Previous Job Posting</h1>
-          <h2>You havent posted any Jobs.</h2>
           {allJobs.map((job) => (
             <Card
               title={job.title}
