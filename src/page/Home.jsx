@@ -9,6 +9,7 @@ import Card from "../Component/Card";
 
 function Admin() {
   const { auth } = useContext(AuthContext);
+  const [allJobs, setAllJobs] = useState([]);
 
   const orgColection = collection(db, "jobs");
 
@@ -17,26 +18,12 @@ function Admin() {
       const d = await getDocs(orgColection);
       const all = d.docs.map((doc) => doc.data());
       console.log(all);
-      const myJobs = all.filter((doc) => doc.postedByEmail === auth.email);
-      console.log(myJobs);
-      setAllJobs(myJobs);
+      setAllJobs(all);
     };
 
     getUsers();
   }, []);
 
-  const addJob = async () => {
-    await addDoc(orgColection, {
-      title,
-      description,
-      roles,
-      postedBy: auth.name,
-      postedByEmail: auth.email,
-    });
-    setDescription("");
-    setRoles("");
-    setTitle("");
-  };
   return (
     <div className="p-7">
       <nav className="w-full flex justify-between">
@@ -48,50 +35,20 @@ function Admin() {
           <Button variant="contained">SignOut</Button>
         </div>
       </nav>
-      <div className="h-screen mt-12 flex">
-        <div>
-          <h1 className="text-2xl ">Add Job Opertunites</h1>
-          <div className=" flex flex-col w-96 gap-6 mt-6">
-            <TextField
-              id="filled-basic"
-              label="Job Tiltle"
-              variant="filled"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-            />
-            <TextField
-              id="filled-basic"
-              label="Description"
-              multiline={true}
-              maxRows="6"
-              variant="filled"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-            />
-            <TextField
-              id="filled-basic"
-              label="Roles"
-              variant="filled"
-              value={roles}
-              onChange={(event) => setRoles(event.target.value)}
-            />
-            <Button variant="contained" onClick={addJob}>
-              Post Job
-            </Button>
-          </div>
-        </div>
-        <div className="ml-44">
-          <h1 className="text-2xl ">Your Previous Job Posting</h1>
-          {allJobs.map((job) => (
-            <Card
-              title={job.title}
-              description={job.description}
-              postedBy={job.postedBy}
-              postedByEmail={job.postedByEmail}
-              roles={job.roles}
-            />
-          ))}
-        </div>
+      <div
+        className="p-2 w-2/5
+"
+      >
+        <h1 className="text-2xl ">Recent Oppertunites</h1>
+        {allJobs.map((job) => (
+          <Card
+            title={job.title}
+            description={job.description}
+            postedBy={job.postedBy}
+            postedByEmail={job.postedByEmail}
+            roles={job.roles}
+          />
+        ))}
       </div>
     </div>
   );
