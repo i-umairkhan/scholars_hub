@@ -5,6 +5,7 @@ import { Button, TextField } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { getDocs } from "firebase/firestore";
+import Card from "../Component/Card";
 
 function Admin() {
   const { auth } = useContext(AuthContext);
@@ -85,7 +86,13 @@ function Admin() {
           <h1 className="text-2xl ">Your Previous Job Posting</h1>
           <h2>You havent posted any Jobs.</h2>
           {allJobs.map((job) => (
-            <h1>{job.title}</h1>
+            <Card
+              title={job.title}
+              description={job.description}
+              postedBy={job.postedBy}
+              postedByEmail={job.postedByEmail}
+              roles={job.roles}
+            />
           ))}
         </div>
       </div>
