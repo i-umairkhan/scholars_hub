@@ -2,14 +2,8 @@ import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -36,6 +30,7 @@ function Signup() {
         setFirstName("");
         setPassword("");
         setSecondName("");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -44,6 +39,8 @@ function Signup() {
       });
     await createUser();
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className=" w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex">
@@ -91,6 +88,17 @@ function Signup() {
           <Button variant="contained" onClick={signUpUser}>
             Create Account
           </Button>
+          <h3 className="flex gap-4 items-center justify-center">
+            Not a member?
+            <Button
+              className="cursor-pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Login
+            </Button>
+          </h3>
         </div>
       </div>
     </div>
