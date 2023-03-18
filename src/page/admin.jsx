@@ -65,7 +65,7 @@ function Admin() {
           </Button>
         </div>
       </nav>
-      <div className="h-screen mt-12 flex">
+      <div className=" mt-12 flex">
         <div className="w-96  ">
           <div className="flex items-center gap-2">
             <AddCircleIcon />
@@ -103,7 +103,7 @@ function Admin() {
         <Divider
           flexItem="true"
           orientation="vertical"
-          sx={{ marginLeft: "60px", marginRight: "60px" }}
+          sx={{ marginLeft: "60px", marginRight: "60px", height: "full" }}
         />
         <div className="">
           <h1 className="text-2xl mb-5 font-bold">Your Previous Job Posting</h1>
