@@ -99,6 +99,17 @@ function Signup() {
               Login
             </Button>
           </h3>
+          <div>
+            <Button
+              className="cursor-pointer"
+              variant="outlined"
+              onClick={() => {
+                navigate("/uni-login");
+              }}
+            >
+              Organization
+            </Button>
+          </div>
         </div>
       </div>
     </div>
