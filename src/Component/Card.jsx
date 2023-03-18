@@ -42,7 +42,15 @@ export default function BasicCard({
         <h1 className="text-xl mg-1">{description}</h1>
         <h1 className="text-gray-400 text-sm mb-1">{postedByEmail}</h1>
         <h1 className=" text-sm mb-1">{roles}</h1>
-        {isJob ? <Button onClick={handleClick}>Apply</Button> : null}
+        {isJob ? (
+          <Button
+            variant="contained"
+            onClick={handleClick}
+            sx={{ marginTop: "5px" }}
+          >
+            Apply
+          </Button>
+        ) : null}
       </CardContent>
     </Card>
   );

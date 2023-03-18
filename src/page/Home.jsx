@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/authContext";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
-import { Button, TextField } from "@mui/material";
+import { Button, Divider, TextField } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { getDocs } from "firebase/firestore";
@@ -50,9 +50,9 @@ function Admin() {
           </Button>
         </div>
       </nav>
-      <div className="p-2   flex justify-between">
+      <div className="p-2 flex justify-evenly">
         <div>
-          <h1 className="text-2xl font-bold mb-5">Recent Oppertunites</h1>
+          <h1 className="text-2xl font-bold my-5">Recent Oppertunites</h1>
           {allJobs.map((job) => (
             <Card
               title={job.title}
@@ -64,11 +64,20 @@ function Admin() {
             />
           ))}
         </div>
+        <Divider
+          flexItem="true"
+          orientation="vertical"
+          sx={{
+            height: "full",
+            marginTop: "40px",
+          }}
+        />
         <div>
+          <h1 className="text-2xl font-bold my-5">Organizations</h1>
           {allorganizations.map((org) => (
             <div>
-              <div>{org.name}</div>
-              <div>{org.email}</div>
+              <div className="text-blue-500 font-bold">{org.name}</div>
+              <div className="text-gray-500 text-sm">{org.address}</div>
             </div>
           ))}
         </div>
