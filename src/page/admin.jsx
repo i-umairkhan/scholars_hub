@@ -1,18 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/authContext";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import { Button, TextField } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
-// import { collection, getDocs } from "firebase/firestore";
+import { getDocs } from "firebase/firestore";
 
 function Admin() {
   const { auth } = useContext(AuthContext);
+  const [allJobs, setAllJobs] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [roles, setRoles] = useState("");
 
   const orgColection = collection(db, "jobs");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const d = await getDocs(orgColection);
+      const all = d.docs.map((doc) => doc.data());
+      console.log(all);
+      setAllJobs(all);
+    };
+
+    getUsers();
+  }, []);
 
   const addJob = async () => {
     await addDoc(orgColection, {
@@ -51,7 +63,7 @@ function Admin() {
             <TextField
               id="filled-basic"
               label="Description"
-              multiline="true"
+              multiline={true}
               maxRows="6"
               variant="filled"
               value={description}
@@ -72,6 +84,9 @@ function Admin() {
         <div className="ml-44">
           <h1 className="text-2xl ">Your Previous Job Posting</h1>
           <h2>You havent posted any Jobs.</h2>
+          {allJobs.map((job) => (
+            <h1>{job.title}</h1>
+          ))}
         </div>
       </div>
     </div>
