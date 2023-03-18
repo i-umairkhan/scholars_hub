@@ -28,9 +28,17 @@ export default function BasicCard({
   const handleClick = () => {};
 
   return (
-    <Card sx={{ minWidth: 275, backgroundColor: "#f2f2f2", marginTop: "20px" }}>
+    <Card
+      variant="outlined"
+      sx={{
+        minWidth: 275,
+        backgroundColor: "#f2f2f2",
+        marginBottom: "20px",
+        width: "700px",
+      }}
+    >
       <CardContent>
-        <h1 className="font-bold mb-2 text-sm"> {title}</h1>
+        <h1 className="font-bold mb-2 text-sm text-blue-500"> {title}</h1>
         <h1 className="text-xl mg-1">{description}</h1>
         <h1 className="text-gray-400 text-sm mb-1">{postedByEmail}</h1>
         <h1 className=" text-sm mb-1">{roles}</h1>
