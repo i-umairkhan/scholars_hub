@@ -1,23 +1,27 @@
 import { Button, Chip, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../CustomeHook/setUser";
+import AuthContext from "../context/authContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        setAuth(await setUser(user, "users"));
         navigate("/home");
       })
       .catch((error) => {

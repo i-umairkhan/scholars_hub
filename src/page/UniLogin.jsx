@@ -1,11 +1,14 @@
 import { Button, Chip, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { auth, db } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import AuthContext from "../context/authContext";
+import { setUser } from "../CustomeHook/setUser";
 
 function Login() {
   const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,9 +16,10 @@ function Login() {
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        setAuth(await setUser(user, "organization"));
         navigate("/home");
       })
       .catch((error) => {
@@ -62,7 +66,7 @@ function Login() {
             <Button
               className="cursor-pointer"
               onClick={() => {
-                navigate("/signup");
+                navigate("/uni-signup");
               }}
             >
               Signup
