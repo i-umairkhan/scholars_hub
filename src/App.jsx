@@ -8,6 +8,7 @@ import "./App.css";
 import UniLogin from "./page/UniLogin";
 import UniSignUp from "./page/UniSignUp";
 import AuthContext from "./context/authContext";
+import Admin from "./page/admin";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -23,6 +24,7 @@ function App() {
                 <Route path="uni-login" element={<UniLogin />} />
                 <Route path="uni-signup" element={<UniSignUp />} />
                 <Route path="home" element={<Home />} />
+                <Route path="admin" element={<Admin />} />
               </Route>
             </Routes>
           </section>

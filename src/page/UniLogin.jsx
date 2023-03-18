@@ -20,7 +20,7 @@ function Login() {
         const user = userCredential.user;
         console.log(user);
         setAuth(await setUser(user, "organization"));
-        navigate("/home");
+        navigate("/admin");
       })
       .catch((error) => {
         const errorCode = error.code;
