@@ -1,7 +1,50 @@
 import { Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase-config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [secondName, setSecondName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const usersCollection = collection(db, "users");
+
+  const createUser = async () => {
+    await addDoc(usersCollection, {
+      name: `${firstName} ${secondName}`,
+      email: `${email}`,
+    });
+  };
+
+  const signUpUser = async (e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        setEmail("");
+        setFirstName("");
+        setPassword("");
+        setSecondName("");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+    await createUser();
+  };
+
   return (
     <div className=" w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex">
       <div className="w-[50%] flex flex-col justify-center items-center">
@@ -20,15 +63,34 @@ function Signup() {
             id="standard-basic"
             label="First Name"
             variant="outlined"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
           />
           <TextField
             id="standard-basic"
             label="Second Name"
             variant="outlined"
+            value={secondName}
+            onChange={(event) => setSecondName(event.target.value)}
           />
-          <TextField id="standard-basic" label="Email" variant="outlined" />
-          <TextField id="standard-basic" label="Password" variant="outlined" />
-          <Button variant="contained">Create Account</Button>
+          <TextField
+            id="standard-basic"
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Button variant="contained" onClick={signUpUser}>
+            Create Account
+          </Button>
         </div>
       </div>
     </div>
